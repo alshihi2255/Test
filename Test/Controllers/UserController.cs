@@ -8,25 +8,48 @@ using Test.Models;
 
 namespace Test.Controllers
 {
-   // http://localhost:4256/api/user
+
 
     [Route("api/[controller]")]
     [ApiController]
     public class UserController : ControllerBase
     {
+
+        public List<User> users = new List<User>()
+        {
+            new User {Id=111, Name="Adil"}
+        };
+        public List<User> users1 = new List<User>()
+        {
+            new User {Id=222, Name="ahmed"}
+        };
+        public UserController()
+        {
+
+        }
+
         [HttpGet]
         public ActionResult GetUser()
         {
-            var user = new User { Id = 1111, Name = "Adel" };
-            return Ok(user);
+            //var user = new User { Id = 1111, Name = "Adel" };
+            return Ok(users);
         }
+
+        [HttpGet]
+        [Route("newlist")]
+        public ActionResult GetUser1()
+        {
+            //var user = new User { Id = 1111, Name = "Adel" };
+            return Ok(users1);
+        }
+
 
 
         [HttpPost]
         public ActionResult AddUser(User user)
         {
-            var newUser = new User { Id = 1111, Name = "Adel2" };
-            return Ok(newUser);
+            //var newUser = new User { Id = 1111, Name = "Adel2" };
+            return Ok(users1);
         }
     }
 }
