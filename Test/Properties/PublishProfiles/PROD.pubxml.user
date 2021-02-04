@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+https://go.microsoft.com/fwlink/?LinkID=208121. 
+-->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <_PublishTargetUrl>ftp://198.37.116.29/www.musc-om.somee.com/api</_PublishTargetUrl>
+    <TimeStampOfAssociatedLegacyPublishXmlFile />
+    <EncryptedPassword />
+  </PropertyGroup>
+  <ItemGroup>
+    <File Include="appsettings.Development.json">
+      <publishTime>02/01/2021 13:44:50</publishTime>
+    </File>
+    <File Include="appsettings.json">
+      <publishTime>02/01/2021 13:44:50</publishTime>
+    </File>
+    <File Include="Test.deps.json">
+      <publishTime>02/03/2021 11:57:05</publishTime>
+    </File>
+    <File Include="Test.dll">
+      <publishTime>02/03/2021 11:57:05</publishTime>
+    </File>
+    <File Include="Test.exe">
+      <publishTime>02/03/2021 11:57:05</publishTime>
+    </File>
+    <File Include="Test.pdb">
+      <publishTime>02/03/2021 11:57:05</publishTime>
+    </File>
+    <File Include="Test.runtimeconfig.json">
+      <publishTime>02/03/2021 11:56:10</publishTime>
+    </File>
+    <File Include="web.config">
+      <publishTime>02/03/2021 11:57:22</publishTime>
+    </File>
+  </ItemGroup>
+</Project>
