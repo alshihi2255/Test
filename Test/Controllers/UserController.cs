@@ -12,85 +12,86 @@ namespace Test
     [ApiController]
     public class UserController : ControllerBase
     {
-      
-       
-        //public List<User> users = new List<User>()
-        //{
 
-        //    new User {Id=111, Name="Adil"}
-        //};
-        //public List<User> users1 = new List<User>()
-        //{
-        //    new User {Id=222, Name="ahmed"}
-        //};
         public UserController()
         {
 
         }
 
         [HttpGet]
-        public   void GetUser()
+        public ActionResult GetUser()
         {
-         var   _str = "workstation id=testDB1.mssql.somee.com;packet size=4096;user id=hunter22_SQLLogin_1;pwd=of2xuqf4bx;data source=testDB1.mssql.somee.com;persist security info=False;initial catalog=testDB1";
-            using (SqlConnection conn = new SqlConnection())
+            var users = new List<User>();
+            using (var conn = new SqlConnection())
             {
-                conn.ConnectionString = "Server=[testDB1.mssql.somee.com];Database=[testDB1];Trusted_Connection=true";
-
+                conn.ConnectionString = "workstation id=testDB1.mssql.somee.com;packet size=4096;user id=hunter22_SQLLogin_1;pwd=of2xuqf4bx;data source=testDB1.mssql.somee.com;persist security info=False;initial catalog=testDB1";
                 try
-            {
-               
                 {
-                    conn.Open();
-                    var query = "select Id, Name from Users";
-                    var cmd = new SqlCommand(query,conn);
-                    var dataReader = cmd.ExecuteReader();
-                    dataReader.Read();
-                    var userDetails = dataReader.GetValue(0);
-
-                    if (dataReader.HasRows)
                     {
-                        while (dataReader.Read())
+                        conn.Open();
+                        var query = "select Id, Name from Users";
+
+                        var cmd = new SqlCommand(query, conn);
+
+                        using (var dr = cmd.ExecuteReader())
                         {
-                            Console.WriteLine("{0}\t{1}", dataReader[0],
-                            dataReader[1]);
+                            while (dr.Read())
+                            {
+                                var current_user = new User()
+                                {
+
+                                    Id = Convert.ToInt32(dr["Id"]),
+
+                                    Name = dr["Name"].ToString(),
+
+                                };
+                                users.Add(current_user);
+                            }
                         }
 
-                        
                     }
-                    else
-                    {
-                        Console.WriteLine("no record founds"); 
-                    }
-                    dataReader.Close();
+                }
+                catch (Exception)
+                {
+                    throw;
+                }
+                return Ok(users);
+            }
+
+
+        }
+
+        [HttpPost]
+
+        public ActionResult AddUser()
+        {
+
+            using (var conn = new SqlConnection())
+            {
+                conn.ConnectionString = "workstation id=testDB1.mssql.somee.com;packet size=4096;user id=hunter22_SQLLogin_1;pwd=of2xuqf4bx;data source=testDB1.mssql.somee.com;persist security info=False;initial catalog=testDB1";
+                try
+                {
+
+
+                    conn.Open();
+                    var query = "insert into Users ( Id, Name) values (1, 'anwar')";
+
+                    var cmd = new SqlCommand(query, conn);
+                    cmd.ExecuteNonQuery();
 
 
                 }
+                catch (Exception)
+                {
+                    throw;
+                }
+                return Ok();
             }
-            catch (Exception)
-            {
 
-                throw;
-            }
 
-            //var user = new User { Id = 1111, Name = "Adel" };
-            
+
         }
-
-        //[HttpGet]
-        //[Route("newlist")]
-        //public ActionResult GetUser1()
-        //{
-        //    //var user = new User { Id = 1111, Name = "Adel" };
-        //    return Ok(users1);
-        //}
-
-
-
-        //[HttpPost]
-        //public ActionResult AddUser(User user)
-        //{
-        //    //var newUser = new User { Id = 1111, Name = "Adel2" };
-        //    return Ok(users1);
-        //}
     }
+
 }
+
