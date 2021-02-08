@@ -63,7 +63,7 @@ namespace Test
 
         [HttpPost]
 
-        public ActionResult AddUser()
+        public ActionResult AddUser(User user)
         {
 
             using (var conn = new SqlConnection())
@@ -74,18 +74,23 @@ namespace Test
 
 
                     conn.Open();
-                    var query = "insert into Users ( Id, Name) values (1, 'anwar')";
+                    var query = "insert into Users ( Id, Name) values (@_id, @_name)";
 
                     var cmd = new SqlCommand(query, conn);
-                    cmd.ExecuteNonQuery();
+                    cmd.Parameters.AddWithValue("_id", user.Id);
+                    cmd.Parameters.AddWithValue("_name", user.Name);
+                    var rows = cmd.ExecuteNonQuery();
 
+                    if(rows > 0 ) return Ok();
+
+                    return Conflict();
 
                 }
                 catch (Exception)
                 {
                     throw;
                 }
-                return Ok();
+                
             }
 
 
