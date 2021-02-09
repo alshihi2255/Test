@@ -40,7 +40,7 @@ namespace Test
                                 var current_user = new User()
                                 {
 
-                                    Id = Convert.ToInt32(dr["Id"]),
+                                    Id = Convert.ToString(dr["Id"]),
 
                                     Name = dr["Name"].ToString(),
 
