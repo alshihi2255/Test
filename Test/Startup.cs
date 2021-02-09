@@ -26,15 +26,7 @@ namespace Test
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddCors(options =>
-            {
-                options.AddDefaultPolicy(option =>
-                {
-                    option.AllowAnyOrigin()
-                    .AllowAnyMethod()
-                    .AllowAnyHeader();
-                });
-            });
+            services.AddCors();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -44,7 +36,7 @@ namespace Test
             {
                 app.UseDeveloperExceptionPage();
             }
-            app.UseCors();
+            app.UseCors( x => x.AllowAnyHeader().AllowAnyOrigin().AllowAnyMethod());
             app.UseHttpsRedirection();
 
             app.UseRouting();

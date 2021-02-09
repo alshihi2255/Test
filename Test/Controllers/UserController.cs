@@ -74,7 +74,7 @@ namespace Test
 
 
                     conn.Open();
-                    var query = "insert into Users ( Id, Name) values (@_id, @_name)";
+                    var query = @"insert into Users ( Id, Name) values (@_id, @_name)";
 
                     var cmd = new SqlCommand(query, conn);
                     cmd.Parameters.AddWithValue("_id", user.Id);
